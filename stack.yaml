@@ -1,0 +1,9 @@
+resolver: lts-17.4
+# resolver: lts-11.22
+
+packages:
+- .
+extra-deps: 
+- pretty-compact-3.0
+- gasp-1.3.0.0
+# - BNFC-2.9.0
