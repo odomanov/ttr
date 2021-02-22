@@ -2,7 +2,6 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving, PatternSynonyms, FlexibleContexts, RecordWildCards, OverloadedStrings, TypeSynonymInstances, TupleSections#-}
-{-# LANGUAGE NoMonadFailDesugaring #-}
 module TypeChecker where
 
 import Prelude hiding (pi, Num(..))
@@ -34,6 +33,9 @@ newtype Typing a = Typing (
   (Writer [D]))) a)
  deriving (Functor, Applicative, Monad, MonadReader TEnv, MonadError D, MonadWriter [D], MonadState Usages)
 
+instance MonadFail Typing where
+  fail = error "Typing monad fail"
+   
 -- | Scale the argument usages
 relax :: Rig -> Typing a -> Typing a
 relax f t = do
